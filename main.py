@@ -31,7 +31,7 @@ def noise(array):
     return np.clip(noisy_array, 0.0, 1.0)
 
 
-def display(array1, array2):
+def display(array1, array2, figname):
     """
     Displays ten random images from each one of the supplied arrays.
     """
@@ -56,4 +56,22 @@ def display(array1, array2):
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
 
-    plt.show()
+    # plt.show()
+    # Use savefig if we are in cimat's cluster
+    plt.savefig(figname)
+
+# Prepare data
+# Since we only need images from the dataset to encode and decode, we
+# won't use the labels.
+(train_data, _), (test_data, _) = mnist.load_data()
+
+# Normalize and reshape the data
+train_data = preprocess(train_data)
+test_data = preprocess(test_data)
+
+# Create a copy of the data with added noise
+noisy_train_data = noise(train_data)
+noisy_test_data = noise(test_data)
+
+# Display the train data and a version of it with added noise
+display(train_data, noisy_train_data, "figure1.png")
