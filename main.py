@@ -6,6 +6,7 @@ from tensorflow.keras import layers
 from tensorflow.keras.datasets import mnist
 from tensorflow.keras.models import Model
 
+print(tf.__version__)
 
 def preprocess(array):
     """
